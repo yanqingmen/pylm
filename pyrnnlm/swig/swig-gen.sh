@@ -1,2 +1,2 @@
 swig -c++ -python pyrnnlm.i
-mv pyrnnlm.py ../src/pyrnnlm.py
+mv pyrnnlm.py ../python_ext/pyrnnlm.py

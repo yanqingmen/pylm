@@ -7,9 +7,9 @@ LINKFLAGS = -lpython2.7
 OBJS = ./obj
 #CFLAGS = -lm -O2 -Wall
 
-all: ./src/_pyrnnlm.so
+all: ./python_ext/_pyrnnlm.so
 
-./src/_pyrnnlm.so : $(OBJS)/rnnlmlib.o $(OBJS)/sentbuffer.o $(OBJS)/rnnlmlib_ext.o $(OBJS)/pyrnnlm_wrap.o
+./python_ext/_pyrnnlm.so : $(OBJS)/rnnlmlib.o $(OBJS)/sentbuffer.o $(OBJS)/rnnlmlib_ext.o $(OBJS)/pyrnnlm_wrap.o
 	$(CC) $(CFLAGS) $(INCFLAGS) $(OPT_DEF) -shared $^ -o $@ $(LINKFLAGS)
 
 $(OBJS)/rnnlmlib.o : ./rnnlm/rnnlmlib.cpp
