@@ -4,6 +4,7 @@ author: hzx
 '''
 from numpy import random
 import numpy as np
+import node
 
 def init_np_zeros_weights(rows, cols):
     '''initialize numpy zero tensor'''
@@ -22,14 +23,14 @@ def np_sigmoid(sdata):
     np.reciprocal(sdata, sdata)
 
 
-def np_sigmoid_backprob(sdata, tdata):
+def np_sigmoid_backprob(grad_data, state_data, output_data):
     '''
     cal backprob of sigmoid func for numpy data
-    backprob = tdata * [sdata * (1 - sdata)]
+    output_data = grad_data * state_data * (1 - state_data)
     * this function will change the value of both sdata and tdata
     '''
-    tdata *= sdata
-    tdata *= (1 - sdata)
+    np.multiply(grad_data, state_data, output_data)
+    output_data *= (1 - state_data)
 
 
 def np_softmax(sdata):
@@ -38,3 +39,11 @@ def np_softmax(sdata):
     row_sum = np.sum(sdata, axis=1)
     for i in xrange(sdata.shape[0]):
         sdata[i] /= row_sum[i]
+
+
+def create_np_node(batch_size, data_size):
+    '''create numpy data node'''
+    data = init_np_zeros_weights(batch_size, data_size)
+    grad_data = init_np_zeros_weights(batch_size, data_size)
+    return node.Node(data, grad=grad_data)
+    

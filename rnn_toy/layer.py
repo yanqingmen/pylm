@@ -55,7 +55,7 @@ class FullConnectLayer(object):
         '''
         if not len(input_nodes) == len(output_nodes) == 1:
             raise TypeError("full connection layer can only handle one-to-one node pair")
-        operations.np_full_connect_op(self._weights.T, None, output_nodes[0], input_nodes[0])
+        operations.np_full_connect_back_op(self._weights.T, None, output_nodes[0], input_nodes[0])
 
 
 class ActivationLayer(object):
@@ -95,7 +95,7 @@ class RecurrentLayer(object):
                 the seconde output_node is used for save tmp data")
         self._f_layer.forward([input_nodes[0]], [output_nodes[1]])
         for node in input_nodes[1:]:
-            operations.np_add_nodes(node, output_nodes[1])
+            operations.np_add_nodes_data(node, output_nodes[1])
         self._act_layer.forward([output_nodes[1]], [output_nodes[0]])
 
     def backprob(self, input_nodes, output_nodes):
@@ -103,10 +103,10 @@ class RecurrentLayer(object):
         if not len(input_nodes) >= 1 and len(output_nodes) == 2:
             raise TypeError("recurrent layer can only handle n-to-two node pair,\
                 the seconde output_node is used for save tmp data")
-        self._act_layer.backprob([output_nodes[0]], [output_nodes[1]])
-        self._f_layer.backprob([output_nodes[1]], [input_nodes[0]])
+        self._act_layer.backprob([output_nodes[1]], [output_nodes[0]])
+        self._f_layer.backprob([input_nodes[0]], [output_nodes[1]])
         for node in input_nodes[1:]:
-            operations.np_copy_nodes(input_nodes[0], node)
+            operations.np_copy_nodes_grad(input_nodes[0], node)
 
 
 class LossLayer(object):
