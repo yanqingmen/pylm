@@ -223,6 +223,10 @@ layer_input = _pyrnnlm.layer_input
 layer_hiden = _pyrnnlm.layer_hiden
 layer_hidenc = _pyrnnlm.layer_hidenc
 layer_output = _pyrnnlm.layer_output
+input2hiden = _pyrnnlm.input2hiden
+hiden2comp = _pyrnnlm.hiden2comp
+hiden2out = _pyrnnlm.hiden2out
+comp2out = _pyrnnlm.comp2out
 class EasyCRnnLM(CRnnLM):
     __swig_setmethods__ = {}
     for _s in [CRnnLM]: __swig_setmethods__.update(getattr(_s,'__swig_setmethods__',{}))
@@ -231,13 +235,18 @@ class EasyCRnnLM(CRnnLM):
     for _s in [CRnnLM]: __swig_getmethods__.update(getattr(_s,'__swig_getmethods__',{}))
     __getattr__ = lambda self, name: _swig_getattr(self, EasyCRnnLM, name)
     __repr__ = _swig_repr
+    def getDirectSize(self): return _pyrnnlm.EasyCRnnLM_getDirectSize(self)
+    def getDirectSynValue(self, *args): return _pyrnnlm.EasyCRnnLM_getDirectSynValue(self, *args)
+    def getLayerSize(self, *args): return _pyrnnlm.EasyCRnnLM_getLayerSize(self, *args)
     def getNeuValue(self, *args): return _pyrnnlm.EasyCRnnLM_getNeuValue(self, *args)
+    def getSynValue(self, *args): return _pyrnnlm.EasyCRnnLM_getSynValue(self, *args)
     def getWordsNumInClass(self, *args): return _pyrnnlm.EasyCRnnLM_getWordsNumInClass(self, *args)
     def getWord(self, *args): return _pyrnnlm.EasyCRnnLM_getWord(self, *args)
     def getVocabSize(self): return _pyrnnlm.EasyCRnnLM_getVocabSize(self)
     def getWordInClass(self, *args): return _pyrnnlm.EasyCRnnLM_getWordInClass(self, *args)
     def getNextWord(self, *args): return _pyrnnlm.EasyCRnnLM_getNextWord(self, *args)
     def calSentScore(self, *args): return _pyrnnlm.EasyCRnnLM_calSentScore(self, *args)
+    def computeNetInfo(self, *args): return _pyrnnlm.EasyCRnnLM_computeNetInfo(self, *args)
     def __init__(self): 
         this = _pyrnnlm.new_EasyCRnnLM()
         try: self.this.append(this)

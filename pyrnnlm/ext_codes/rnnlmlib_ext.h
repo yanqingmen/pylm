@@ -18,11 +18,25 @@ enum layer{
     layer_output
 };
 
+enum  weight{
+    input2hiden,
+    hiden2comp,
+    hiden2out,
+    comp2out
+};
 
 class EasyCRnnLM:public CRnnLM{
     public:
+        //get direct size
+        int getDirectSize();
+        //get direct syn value
+        real getDirectSynValue(int index);
+        //get layer size
+        int getLayerSize(layer layerid);
         //get the neu value of given index in certain layer
         real getNeuValue(layer layerid, int index);
+        //get the weights value of given index in certain syn
+        real getSynValue(weight synid, int f_index, int s_index);
         //get the words number of given class id
         int getWordsNumInClass(int classid);
         //get the word of given index
@@ -36,6 +50,7 @@ class EasyCRnnLM:public CRnnLM{
         //calculate score of given sentence
         double calSentScore(char* sent);
         //calculate score for newword, with current hiden statement
+        void computeNetInfo(int last_word, int word);
 //        double calWordScore(char* word);
         //update hiden neu statement by given word
 //        void updateNeu(char* word);

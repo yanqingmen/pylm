@@ -80,12 +80,15 @@ class RecurrentConnect(object):
         self._layer.forward(self._input_nodes, self._output_nodes)
         self.save_history(self._output_nodes[0])
 
+    def backprob(self):
+        '''backprob operation'''
+        opterations.np_copy_nodes_grad(self._output_nodes[0], self._hist_nodes[0])
+        self._layer.backprob(self._input_nodes, self._output_nodes)
+
     def update(self):
         '''update operation'''
-        input_data = self._input_nodes[0].get_data()
-        gradient_data = self._output_nodes[0].get_grad()
-        self._updator.cal_update_values(input_data, gradient_data)
-        self._updator.do_update(self._layer._weights)
+        self.update_history()
+        
 
     def save_history(self, state_node):
         '''save history state'''
@@ -95,18 +98,20 @@ class RecurrentConnect(object):
         if self._hist_index < self._bptt+1:
             self._hist_index += 1
 
-    def update_history(self, gradient_node):
+    def update_history(self):
         '''bptt training via history states'''
         for i in xrange(self._hist_index-1):
             input_data = self._hist_nodes[i+1].get_data()
             gradient_data = self._hist_nodes[i].get_grad()
             self._updator.cal_update_values(input_data, gradient_data)
             self._updator.do_update(self._layer._weights)
-            #cal 
+            #cal new gradient
+            self._layer.backprob([self._hist_nodes[i+1]], [self._hist_nodes[i], self._output_nodes[1]])
 
 
-    def _create_hist_nodes(self, batch_size, data_size, gradient_data, hist_size):
-        # all hist node share the same gradient_data with output node
+    def _create_hist_nodes(self, batch_size, data_size, hist_size):
+        # all hist node share the same gradient_data
+        gradient_data = util.init_np_zeros_weights(batch_size, data_size)
         hist_nodes = [node.Node(util.init_np_zeros_weights(batch_size, data_size), grad=gradient_data) for i in xrange(hist_size)]
+        hist_nodes.insert(0, node.Node(util.init_np_weights(batch_size, data_size), grad=gradient_data))
         return hist_nodes
-        

@@ -5741,6 +5741,90 @@ SWIGINTERN PyObject *Swig_var_empty_word_get(void) {
 }
 
 
+SWIGINTERN PyObject *_wrap_EasyCRnnLM_getDirectSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  EasyCRnnLM *arg1 = (EasyCRnnLM *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:EasyCRnnLM_getDirectSize",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EasyCRnnLM, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "EasyCRnnLM_getDirectSize" "', argument " "1"" of type '" "EasyCRnnLM *""'"); 
+  }
+  arg1 = reinterpret_cast< EasyCRnnLM * >(argp1);
+  result = (int)(arg1)->getDirectSize();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_EasyCRnnLM_getDirectSynValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  EasyCRnnLM *arg1 = (EasyCRnnLM *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  real result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:EasyCRnnLM_getDirectSynValue",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EasyCRnnLM, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "EasyCRnnLM_getDirectSynValue" "', argument " "1"" of type '" "EasyCRnnLM *""'"); 
+  }
+  arg1 = reinterpret_cast< EasyCRnnLM * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "EasyCRnnLM_getDirectSynValue" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  result = (real)(arg1)->getDirectSynValue(arg2);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_EasyCRnnLM_getLayerSize(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  EasyCRnnLM *arg1 = (EasyCRnnLM *) 0 ;
+  layer arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:EasyCRnnLM_getLayerSize",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EasyCRnnLM, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "EasyCRnnLM_getLayerSize" "', argument " "1"" of type '" "EasyCRnnLM *""'"); 
+  }
+  arg1 = reinterpret_cast< EasyCRnnLM * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "EasyCRnnLM_getLayerSize" "', argument " "2"" of type '" "layer""'");
+  } 
+  arg2 = static_cast< layer >(val2);
+  result = (int)(arg1)->getLayerSize(arg2);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_EasyCRnnLM_getNeuValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   EasyCRnnLM *arg1 = (EasyCRnnLM *) 0 ;
@@ -5774,6 +5858,55 @@ SWIGINTERN PyObject *_wrap_EasyCRnnLM_getNeuValue(PyObject *SWIGUNUSEDPARM(self)
   } 
   arg3 = static_cast< int >(val3);
   result = (real)(arg1)->getNeuValue(arg2,arg3);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_EasyCRnnLM_getSynValue(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  EasyCRnnLM *arg1 = (EasyCRnnLM *) 0 ;
+  weight arg2 ;
+  int arg3 ;
+  int arg4 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  int val4 ;
+  int ecode4 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  real result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOO:EasyCRnnLM_getSynValue",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EasyCRnnLM, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "EasyCRnnLM_getSynValue" "', argument " "1"" of type '" "EasyCRnnLM *""'"); 
+  }
+  arg1 = reinterpret_cast< EasyCRnnLM * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "EasyCRnnLM_getSynValue" "', argument " "2"" of type '" "weight""'");
+  } 
+  arg2 = static_cast< weight >(val2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "EasyCRnnLM_getSynValue" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  ecode4 = SWIG_AsVal_int(obj3, &val4);
+  if (!SWIG_IsOK(ecode4)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode4), "in method '" "EasyCRnnLM_getSynValue" "', argument " "4"" of type '" "int""'");
+  } 
+  arg4 = static_cast< int >(val4);
+  result = (real)(arg1)->getSynValue(arg2,arg3,arg4);
   resultobj = SWIG_From_double(static_cast< double >(result));
   return resultobj;
 fail:
@@ -5970,6 +6103,45 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_EasyCRnnLM_computeNetInfo(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  EasyCRnnLM *arg1 = (EasyCRnnLM *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:EasyCRnnLM_computeNetInfo",&obj0,&obj1,&obj2)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_EasyCRnnLM, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "EasyCRnnLM_computeNetInfo" "', argument " "1"" of type '" "EasyCRnnLM *""'"); 
+  }
+  arg1 = reinterpret_cast< EasyCRnnLM * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "EasyCRnnLM_computeNetInfo" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "EasyCRnnLM_computeNetInfo" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = static_cast< int >(val3);
+  (arg1)->computeNetInfo(arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_EasyCRnnLM(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   EasyCRnnLM *result = 0 ;
@@ -6098,13 +6270,18 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"CRnnLM_testGen", _wrap_CRnnLM_testGen, METH_VARARGS, NULL},
 	 { (char *)"CRnnLM_matrixXvector", _wrap_CRnnLM_matrixXvector, METH_VARARGS, NULL},
 	 { (char *)"CRnnLM_swigregister", CRnnLM_swigregister, METH_VARARGS, NULL},
+	 { (char *)"EasyCRnnLM_getDirectSize", _wrap_EasyCRnnLM_getDirectSize, METH_VARARGS, NULL},
+	 { (char *)"EasyCRnnLM_getDirectSynValue", _wrap_EasyCRnnLM_getDirectSynValue, METH_VARARGS, NULL},
+	 { (char *)"EasyCRnnLM_getLayerSize", _wrap_EasyCRnnLM_getLayerSize, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_getNeuValue", _wrap_EasyCRnnLM_getNeuValue, METH_VARARGS, NULL},
+	 { (char *)"EasyCRnnLM_getSynValue", _wrap_EasyCRnnLM_getSynValue, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_getWordsNumInClass", _wrap_EasyCRnnLM_getWordsNumInClass, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_getWord", _wrap_EasyCRnnLM_getWord, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_getVocabSize", _wrap_EasyCRnnLM_getVocabSize, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_getWordInClass", _wrap_EasyCRnnLM_getWordInClass, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_getNextWord", _wrap_EasyCRnnLM_getNextWord, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_calSentScore", _wrap_EasyCRnnLM_calSentScore, METH_VARARGS, NULL},
+	 { (char *)"EasyCRnnLM_computeNetInfo", _wrap_EasyCRnnLM_computeNetInfo, METH_VARARGS, NULL},
 	 { (char *)"new_EasyCRnnLM", _wrap_new_EasyCRnnLM, METH_VARARGS, NULL},
 	 { (char *)"delete_EasyCRnnLM", _wrap_delete_EasyCRnnLM, METH_VARARGS, NULL},
 	 { (char *)"EasyCRnnLM_swigregister", EasyCRnnLM_swigregister, METH_VARARGS, NULL},
@@ -6856,6 +7033,10 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "layer_hiden",SWIG_From_int(static_cast< int >(layer_hiden)));
   SWIG_Python_SetConstant(d, "layer_hidenc",SWIG_From_int(static_cast< int >(layer_hidenc)));
   SWIG_Python_SetConstant(d, "layer_output",SWIG_From_int(static_cast< int >(layer_output)));
+  SWIG_Python_SetConstant(d, "input2hiden",SWIG_From_int(static_cast< int >(input2hiden)));
+  SWIG_Python_SetConstant(d, "hiden2comp",SWIG_From_int(static_cast< int >(hiden2comp)));
+  SWIG_Python_SetConstant(d, "hiden2out",SWIG_From_int(static_cast< int >(hiden2out)));
+  SWIG_Python_SetConstant(d, "comp2out",SWIG_From_int(static_cast< int >(comp2out)));
 #if PY_VERSION_HEX >= 0x03000000
   return m;
 #else
