@@ -41,9 +41,15 @@ def np_softmax(sdata):
         sdata[i] /= row_sum[i]
 
 
-def create_np_node(batch_size, data_size):
+def create_np_node(batch_size, data_size, init_random=False, grad=None):
     '''create numpy data node'''
-    data = init_np_zeros_weights(batch_size, data_size)
-    grad_data = init_np_zeros_weights(batch_size, data_size)
+    if init_random:
+        data = init_np_weights(batch_size, data_size)
+    else:
+        data = init_np_zeros_weights(batch_size, data_size)
+    if grad is not None:
+        grad_data = grad
+    else:
+        grad_data = init_np_zeros_weights(batch_size, data_size)
     return node.Node(data, grad=grad_data)
     

@@ -57,6 +57,10 @@ class FullConnectLayer(object):
             raise TypeError("full connection layer can only handle one-to-one node pair")
         operations.np_full_connect_back_op(self._weights.T, None, output_nodes[0], input_nodes[0])
 
+    def get_weights(self):
+        '''get weights of full_conn_layer'''
+        return self._weights
+
 
 class ActivationLayer(object):
     '''activation layer'''
@@ -107,6 +111,11 @@ class RecurrentLayer(object):
         self._f_layer.backprob([input_nodes[0]], [output_nodes[1]])
         for node in input_nodes[1:]:
             operations.np_copy_nodes_grad(input_nodes[0], node)
+
+    def get_weights(self):
+        '''get weights of rec_layer'''
+        return self._f_layer.get_weights()
+
 
 
 class LossLayer(object):
