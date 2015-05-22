@@ -59,3 +59,8 @@ def np_copy_nodes_grad(input_node, output_node):
     input_data = input_node.get_grad()
     output_data = output_node.get_grad()
     np.copyto(output_data, input_data)
+
+def np_softmax_op(input_node):
+    '''inline softmax operation for numpy matrix'''
+    input_data = input_node.get_data()
+    util.np_softmax(input_data)

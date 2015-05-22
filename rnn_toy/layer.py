@@ -61,6 +61,10 @@ class FullConnectLayer(object):
         '''get weights of full_conn_layer'''
         return self._weights
 
+    def get_bias(self):
+        '''get bias of this layer'''
+        return self._bias
+
 
 class ActivationLayer(object):
     '''activation layer'''

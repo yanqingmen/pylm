@@ -109,7 +109,6 @@ class RecurrentConnect(object):
     def update(self):
         '''update operation'''
         self.update_history()
-        
 
     def save_history(self, state_node):
         '''save history state'''
@@ -142,6 +141,73 @@ class RecurrentConnect(object):
 
 class FullCLayerConnect(object):
     '''fullconnlayer based connection'''
-    def __init__(self, input_size, output_size, batch_size, alpha=0.01):
-        self._layer = layer.FullConnectLayer(input_size, output_size, no_bias=True)
-        
+    def __init__(self, input_size, output_size, batch_size, alpha=0.01, no_bias=False):
+        self._input_size = input_size
+        self._output_size = output_size
+        self._batch_size = batch_size
+        self._layer = layer.FullConnectLayer(input_size, output_size, no_bias=no_bias)
+        self._updator = updator.WeightsUpdator(input_size, output_size, alpha)
+        if no_bias is False:
+            self._bias_updator = updator.BiasUpdator(output_size, alpha)
+        else:
+            self._bias_updator = None
+        self._output_nodes = [util.create_np_node(batch_size, output_size)]
+        self._input_nodes = None
+
+    def check_data_dimension(self):
+        '''check the input data dimension'''
+        input_node = self._input_nodes[0]
+        tshape = input_node.get_data().shape
+        if not tshape == (self._batch_size, self._input_size):
+            raise TypeError("shape of inputdata is not fit with this connect,(%s,%s):(%s,%s)",\
+             (tshape[0], tshape[1], self._batch_size, self._input_size))
+
+    def set_input_nodes(self, input_nodes):
+        '''set input nodes for this connection'''
+        self._input_nodes = input_nodes
+
+    def link_to_previous(self, prev_conn):
+        '''link this connection to previous connection'''
+        self._input_nodes = [prev_conn.get_output_nodes()[0]]
+
+    def get_output_nodes(self):
+        '''get output nodes of this connection'''
+        return [self._output_nodes[0]]
+
+    def forward(self):
+        '''forward operation'''
+        self._layer.forward(self._input_nodes, self._output_nodes)
+
+    def backprob(self):
+        '''backprob operation'''
+        self._layer.backprob(self._input_nodes, self._output_nodes)
+
+    def update(self):
+        '''update weights'''
+        input_data = self._input_nodes[0].get_data()
+        gradient_data = self._output_nodes[0].get_grad()
+        self._updator.cal_update_values(input_data, gradient_data)
+        self._updator.do_update(self._layer.get_weights())
+        if self._bias_updator is not None:
+            self._bias_updator.cal_update_values(gradient_data)
+            self._bias_updator.do_update(self._layer.get_bias())
+
+
+class SoftMaxConnect(object):
+    '''connect based on softmax'''
+    def __init__(self):
+        self._output_nodes = None
+
+    def link_to_previous(self, prev_conn):
+        '''link with previous connection'''
+        self._output_nodes = [prev_conn.get_output_nodes()[0]]
+
+    def forward(self):
+        '''forward operation'''
+        operations.np_softmax_op(self._output_nodes[0])
+
+    def backprob(self, target_data):
+        '''backprob operation'''
+        output_data = self._output_nodes[0].get_data()
+        gradient_data = self._output_nodes[0].get_grad()
+        util.np_cal_gradient(output_data, target_data, gradient_data)

@@ -40,6 +40,9 @@ def np_softmax(sdata):
     for i in xrange(sdata.shape[0]):
         sdata[i] /= row_sum[i]
 
+def np_cal_gradient(output_data, target_data, gradient_data):
+    '''gradient_data = output_data - target_data'''
+    np.add(output_data, -target_data, gradient_data)
 
 def create_np_node(batch_size, data_size, init_random=False, grad=None):
     '''create numpy data node'''
