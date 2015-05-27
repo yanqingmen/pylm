@@ -14,6 +14,11 @@ def init_np_weights(rows, cols):
     '''initialize numpy tensor weights'''
     return random.randn(rows, cols)
 
+def flat_target_data(target_data, flatted_target_data):
+    '''flat target data'''
+    f_index = np.array(range(target_data.shape[0]))
+    flatted_target_data[f_index, target_data] = 1
+
 
 def np_sigmoid(sdata):
     '''cal sigmoid for numpy data'''

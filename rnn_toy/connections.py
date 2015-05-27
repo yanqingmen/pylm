@@ -197,17 +197,26 @@ class SoftMaxConnect(object):
     '''connect based on softmax'''
     def __init__(self):
         self._output_nodes = None
+        self._target_data = None
 
     def link_to_previous(self, prev_conn):
         '''link with previous connection'''
         self._output_nodes = [prev_conn.get_output_nodes()[0]]
 
+    def set_target(self, target_data):
+        '''set target data'''
+        self._target_data = target_data
+
+    def get_output_nodes(self):
+        '''get output nodes of this connection'''
+        return [self._output_nodes[0]]
+
     def forward(self):
         '''forward operation'''
         operations.np_softmax_op(self._output_nodes[0])
 
-    def backprob(self, target_data):
+    def backprob(self):
         '''backprob operation'''
         output_data = self._output_nodes[0].get_data()
         gradient_data = self._output_nodes[0].get_grad()
-        util.np_cal_gradient(output_data, target_data, gradient_data)
+        util.np_cal_gradient(output_data, self._target_data, gradient_data)
