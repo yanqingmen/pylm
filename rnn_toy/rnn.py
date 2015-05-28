@@ -17,6 +17,7 @@ class SimpleRnn(object):
         self.connects = [emb_connect, rec_connect, full_connect, softmax_connect]
         self.flatted_target_data = util.init_np_zeros_weights(batch_size, output_size)
         self.connects[-1].set_target(self.flatted_target_data)
+        self._rec_conn = rec_connect
         #link
         for i in xrange(1, len(self.connects)):
             self.connects[i].link_to_previous(self.connects[i-1])
@@ -37,6 +38,11 @@ class SimpleRnn(object):
         util.flat_target_data(target_data, self.flatted_target_data)
         for i in xrange(len(self.connects)-1, -1, -1):
             self.connects[i].backprob()
+            self.connects[i].update()
+
+    def reset_hiden_state(self):
+        '''reset hiden state of recurrent layer'''
+        self._rec_conn.reset_state()
 
     def train_one_batch(self, input_data, target_data):
         '''train one batch'''

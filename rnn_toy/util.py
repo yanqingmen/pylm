@@ -19,9 +19,14 @@ def flat_target_data(target_data, flatted_target_data):
     f_index = np.array(range(target_data.shape[0]))
     flatted_target_data[f_index, target_data] = 1
 
+def np_clip(sdata):
+    '''make abs value of sdata no more than 50, for numerical stability'''
+    np.clip(sdata, -50, 50, sdata)
+
 
 def np_sigmoid(sdata):
     '''cal sigmoid for numpy data'''
+    np_clip(sdata)
     np.negative(sdata, sdata)
     np.exp(sdata, sdata)
     sdata += 1
@@ -40,6 +45,7 @@ def np_sigmoid_backprob(grad_data, state_data, output_data):
 
 def np_softmax(sdata):
     '''cal softmax for numpy data'''
+    np_clip(sdata)
     np.exp(sdata, sdata)
     row_sum = np.sum(sdata, axis=1)
     for i in xrange(sdata.shape[0]):
@@ -47,7 +53,7 @@ def np_softmax(sdata):
 
 def np_cal_gradient(output_data, target_data, gradient_data):
     '''gradient_data = output_data - target_data'''
-    np.add(output_data, -target_data, gradient_data)
+    np.add(-output_data, target_data, gradient_data)
 
 def create_np_node(batch_size, data_size, init_random=False, grad=None):
     '''create numpy data node'''

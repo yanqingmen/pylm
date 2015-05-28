@@ -67,7 +67,8 @@ class RecurrentConnect(object):
         self._hiden_size = hiden_size
         self._batch_size = batch_size
         # recurrent layer has a defualt data node which shared by input and output
-        self._input_nodes = [util.create_np_node(batch_size, hiden_size, init_random=True)]
+        # self._input_nodes = [util.create_np_node(batch_size, hiden_size, init_random=True)]
+        self._input_nodes = [util.create_np_node(batch_size, hiden_size)]
         # besides the default data node, output nodes also include a tmp data node for save tmp data
         self._output_nodes = [self._input_nodes[0], util.create_np_node(batch_size, hiden_size)]
         self._bptt = bptt
@@ -117,6 +118,12 @@ class RecurrentConnect(object):
         operations.np_copy_nodes_data(state_node, t_node)
         if self._hist_index < self._bptt+1:
             self._hist_index += 1
+
+    def reset_state(self):
+        '''reset_state and history'''
+        self._hist_index = 1
+        self._input_nodes[0].get_data()[:] = 0
+        self._hist_nodes[0].get_data()[:] = 0
 
     def update_history(self):
         '''bptt training via history states'''
@@ -220,3 +227,7 @@ class SoftMaxConnect(object):
         output_data = self._output_nodes[0].get_data()
         gradient_data = self._output_nodes[0].get_grad()
         util.np_cal_gradient(output_data, self._target_data, gradient_data)
+
+    def update(self):
+        '''no update need be done for softmax connect'''
+        pass
