@@ -31,12 +31,12 @@ def main():
     '''training test'''
     train_corpus = "./tests/small_train.txt"
     valid_corpus = "./tests/small_valid.txt"
-    batch_size = 25
+    batch_size = 1
     vocab_size = 1396
     hiden_size = 50
     rounds = 10
     alpha = 0.1
-    bptt = 0
+    bptt = 5
     train_rnn(train_corpus, valid_corpus, batch_size, vocab_size, hiden_size, rounds, alpha, bptt)
 
 if __name__ == '__main__':

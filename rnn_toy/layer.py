@@ -114,7 +114,7 @@ class RecurrentLayer(object):
         self._act_layer.backprob([output_nodes[1]], [output_nodes[0]])
         self._f_layer.backprob([input_nodes[0]], [output_nodes[1]])
         for node in input_nodes[1:]:
-            operations.np_copy_nodes_grad(input_nodes[0], node)
+            operations.np_copy_nodes_grad(output_nodes[1], node)
 
     def get_weights(self):
         '''get weights of rec_layer'''

@@ -26,6 +26,7 @@ class WeightsUpdator(object):
     def __init__(self, input_size, output_size, alpha):
         self._weights_t = util.init_np_zeros_weights(input_size, output_size)
         self._alpha = alpha
+        self._beta = 0.0000001
 
     def cal_update_values(self, input_data, gradient_data):
         '''calculate update values for bias via gradient'''
@@ -34,6 +35,7 @@ class WeightsUpdator(object):
     def do_update(self, weights):
         '''do update for given weights'''
         self._weights_t *= self._alpha
+        weights *= (1.0 - self._beta *self._alpha)
         weights += self._weights_t
 
 class EmbdUpdator(object):

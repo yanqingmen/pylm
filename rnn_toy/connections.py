@@ -72,8 +72,9 @@ class RecurrentConnect(object):
         # besides the default data node, output nodes also include a tmp data node for save tmp data
         self._output_nodes = [self._input_nodes[0], util.create_np_node(batch_size, hiden_size)]
         self._bptt = bptt
-
-        self._hist_nodes = self._create_hist_nodes(batch_size, hiden_size, bptt)
+        # shared gradient data
+        gradient_data = self._output_nodes[1].get_grad()
+        self._hist_nodes = self._create_hist_nodes(batch_size, hiden_size, bptt, gradient_data)
         self._hist_index = 1
 
     def check_data_dimension(self):
@@ -104,7 +105,7 @@ class RecurrentConnect(object):
 
     def backprob(self):
         '''backprob operation'''
-        operations.np_copy_nodes_grad(self._output_nodes[0], self._hist_nodes[0])
+        # operations.np_copy_nodes_grad(self._output_nodes[0], self._hist_nodes[0])
         self._layer.backprob(self._input_nodes, self._output_nodes)
 
     def update(self):
@@ -137,10 +138,9 @@ class RecurrentConnect(object):
             c_output_nodes = [self._hist_nodes[i], self._output_nodes[1]]
             self._layer.backprob(c_input_nodes, c_output_nodes)
 
-    def _create_hist_nodes(self, batch_size, data_size, hist_size):
+    def _create_hist_nodes(self, batch_size, data_size, hist_size, gradient_data):
         '''create history state nodes'''
         # all hist node share the same gradient_data
-        gradient_data = util.init_np_zeros_weights(batch_size, data_size)
         hist_nodes = [util.create_np_node(batch_size, data_size, grad=gradient_data) for i in xrange(hist_size+1)]
         operations.np_copy_nodes_data(self._input_nodes[0], hist_nodes[0])
         return hist_nodes
